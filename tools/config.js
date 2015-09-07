@@ -68,7 +68,7 @@ const config = {
   module: {
     loaders: [{
       test: /\.txt/,
-      loader: 'file?name=[path][name].[ext]'
+      loader: 'file-loader?name=[path][name].[ext]'
     }, {
       test: /\.gif/,
       loader: 'url-loader?limit=10000&mimetype=image/gif'
@@ -82,15 +82,27 @@ const config = {
       test: /\.svg/,
       loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
     }, {
-        test: /\.scss$/,
-        loader: 'style!css!sass'
+      test: /\.scss$/,
+      loader: 'style!css!sass'
+	}, {
+      test: /\.eot/,
+      loader: 'url-loader?limit=100000&mimetype=application/vnd.ms-fontobject'
+    }, {
+      test: /\.woff2/,
+      loader: 'url-loader?limit=100000&mimetype=application/font-woff2'
+    }, {
+      test: /\.woff/,
+      loader: 'url-loader?limit=100000&mimetype=application/font-woff'
+    }, {
+      test: /\.ttf/,
+      loader: 'url-loader?limit=100000&mimetype=application/font-ttf'
     }, {
       test: /\.jsx?$/,
       include: [
         path.resolve(__dirname, '../node_modules/react-routing/src'),
         path.resolve(__dirname, '../src')
       ],
-      loaders: [...(WATCH ? ['react-hot'] : []), 'babel-loader']
+      loaders: [...(WATCH && ['react-hot']), 'babel-loader']
     }]
   },
 
@@ -106,7 +118,10 @@ const config = {
 // -----------------------------------------------------------------------------
 
 const appConfig = merge({}, config, {
-  entry: [...(WATCH ? ['webpack-hot-middleware/client'] : []), './src/app.js'],
+  entry: [
+    ...(WATCH && ['webpack-hot-middleware/client']),
+    './src/app.js'
+  ],
   output: {
     path: path.join(__dirname, '../build/public'),
     filename: 'app.js'
@@ -115,15 +130,14 @@ const appConfig = merge({}, config, {
   plugins: [
     ...config.plugins,
     new DefinePlugin(merge({}, GLOBALS, {'__SERVER__': false})),
-    ...(DEBUG ? [] : [
+    ...(!DEBUG && [
       new webpack.optimize.DedupePlugin(),
       new webpack.optimize.UglifyJsPlugin({compress: {warnings: VERBOSE}}),
       new webpack.optimize.AggressiveMergingPlugin()
     ]),
-    ...(WATCH ? [
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoErrorsPlugin()
-    ] : [])
+    ...(WATCH && [
+      new webpack.HotModuleReplacementPlugin()
+    ])
   ],
   module: {
     loaders: [...config.module.loaders, {
