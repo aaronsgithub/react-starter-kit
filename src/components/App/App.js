@@ -8,6 +8,8 @@ import Header from '../Header';
 import Feedback from '../Feedback';
 import Footer from '../Footer';
 
+require('../../../node_modules/material-design-lite/src/material-design-lite.scss');
+
 @withContext
 @withStyles(styles)
 class App {

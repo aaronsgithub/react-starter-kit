@@ -82,6 +82,9 @@ const config = {
       test: /\.svg/,
       loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
     }, {
+        test: /\.scss$/,
+        loader: 'style!css!sass'
+    }, {
       test: /\.jsx?$/,
       include: [
         path.resolve(__dirname, '../node_modules/react-routing/src'),
