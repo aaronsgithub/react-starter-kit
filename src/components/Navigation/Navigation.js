@@ -15,14 +15,13 @@ class Navigation {
 
   render() {
     return (
-      <div className={classNames(this.props.className, 'Navigation')} role="navigation">
-        <a className="Navigation-link" href="/about" onClick={Link.handleClick}>About</a>
-        <a className="Navigation-link" href="/contact" onClick={Link.handleClick}>Contact</a>
-        <span className="Navigation-spacer"> | </span>
-        <a className="Navigation-link" href="/login" onClick={Link.handleClick}>Log in</a>
-        <span className="Navigation-spacer">or</span>
-        <a className="Navigation-link Navigation-link--highlight" href="/register" onClick={Link.handleClick}>Sign up</a>
-      </div>
+      <nav className={classNames(this.props.className, 'mdl-navigation')} role="navigation">
+        <a className="mdl-navigation__link" href="/" onClick={Link.handleClick}>Home</a>
+        <a className="mdl-navigation__link" href="/about" onClick={Link.handleClick}>About</a>
+        <a className="mdl-navigation__link" href="/services" onClick={Link.handleClick}>Services</a>
+        <a className="mdl-navigation__link" href="/portfolio" onClick={Link.handleClick}>Our work</a>
+        <a className="mdl-navigation__link" href="/contact" onClick={Link.handleClick}>Contact us</a>
+      </nav>
     );
   }
 

@@ -82,9 +82,6 @@ const config = {
       test: /\.svg/,
       loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
     }, {
-      test: /\.scss$/,
-      loader: 'style!css!sass'
-	}, {
       test: /\.eot/,
       loader: 'url-loader?limit=100000&mimetype=application/vnd.ms-fontobject'
     }, {
@@ -103,7 +100,7 @@ const config = {
         path.resolve(__dirname, '../src')
       ],
       loaders: [...(WATCH && ['react-hot']), 'babel-loader']
-    }]
+	}]
   },
 
   postcss: [
@@ -143,7 +140,10 @@ const appConfig = merge({}, config, {
     loaders: [...config.module.loaders, {
       test: /\.css$/,
       loader: `${STYLE_LOADER}!${CSS_LOADER}!postcss-loader`
-    }]
+    }, {
+      test: /\.scss$/,
+      loader: 'style!css!sass'
+	}]
   }
 });
 
@@ -187,7 +187,10 @@ const serverConfig = merge({}, config, {
     loaders: [...config.module.loaders, {
       test: /\.css$/,
       loader: `${CSS_LOADER}!postcss-loader`
-    }]
+    }, {
+      test: /\.scss$/,
+      loader: 'css!sass'
+	}]
   }
 });
 

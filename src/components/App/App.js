@@ -8,7 +8,8 @@ import Header from '../Header';
 import Feedback from '../Feedback';
 import Footer from '../Footer';
 
-require('../../../node_modules/material-design-lite/src/material-design-lite.scss');
+require('./App.scss');
+
 
 @withContext
 @withStyles(styles)
@@ -21,7 +22,7 @@ class App {
 
   render() {
     return !this.props.error ? (
-      <div>
+      <div className="mdl-layout mdl-js-layout">
         <Header />
         {this.props.children}
         <Feedback />
